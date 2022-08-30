@@ -46,40 +46,55 @@ module.exports = class extends Component {
                     {page.layout !== 'page' ? <div class="article-meta is-size-7 is-uppercase level is-mobile">
                         <div class="level-left">
                             {/* Creation Date */}
-                            {page.date && <span class="level-item" dangerouslySetInnerHTML={{
-                                __html: _p('article.created_at', `<time dateTime="${date_xml(page.date)}" title="${new Date(page.date).toLocaleString()}">${date(page.date)}</time>`)
-                            }}></span>}
+                            {page.date && <p class="level-item is-flex justify-content-center">
+                                <i class="fas fa-calendar mr-1" />
+                                <span dangerouslySetInnerHTML={{
+                                    __html: _p('article.created_at', `<time dateTime="${date_xml(page.date)}" title="${new Date(page.date).toLocaleString()}">${date(page.date)}</time>`)
+                                }}></span>
+                            </p>}
                             {/* Last Update Date */}
-                            {shouldShowUpdated && <span class="level-item" dangerouslySetInnerHTML={{
-                                __html: _p('article.updated_at', `<time dateTime="${date_xml(page.updated)}" title="${new Date(page.updated).toLocaleString()}">${date(page.updated)}</time>`)
-                            }}></span>}
+                            {shouldShowUpdated && <p class="level-item is-flex justify-content-center">
+                                <i class="fas fa-pen mr-1" />
+                                <span dangerouslySetInnerHTML={{
+                                    __html: _p('article.updated_at', `<time dateTime="${date_xml(page.updated)}" title="${new Date(page.updated).toLocaleString()}">${date(page.updated)}</time>`)
+                                }}></span>
+                            </p>}
                             {/* author */}
                             {page.author ? <span class="level-item"> {page.author} </span> : null}
                             {/* Categories */}
-                            {page.categories && page.categories.length ? <span class="level-item">
-                                {(() => {
-                                    const categories = [];
-                                    page.categories.forEach((category, i) => {
-                                        categories.push(<a class="link-muted" href={url_for(category.path)}>{category.name}</a>);
-                                        if (i < page.categories.length - 1) {
-                                            categories.push(<span>&nbsp;/&nbsp;</span>);
-                                        }
-                                    });
-                                    return categories;
-                                })()}
-                            </span> : null}
+                            {page.categories && page.categories.length ? <p class="level-item is-flex justify-content-center">
+                                <i class="fas fa-folder mr-1" />
+                                <span>
+                                    {(() => {
+                                        const categories = [];
+                                        page.categories.forEach((category, i) => {
+                                            categories.push(<a class="link-muted" href={url_for(category.path)}>{category.name}</a>);
+                                            if (i < page.categories.length - 1) {
+                                                categories.push(<span>&nbsp;/&nbsp;</span>);
+                                            }
+                                        });
+                                        return categories;
+                                    })()}
+                                </span>
+                            </p> : null}
                             {/* Read time */}
-                            {article && article.readtime && article.readtime === true ? <span class="level-item">
-                                {(() => {
-                                    const words = getWordCount(page._content);
-                                    const time = moment.duration((words / 150.0) * 60, 'seconds');
-                                    return `${_p('article.read_time', time.locale(index ? indexLaunguage : language).humanize())} (${_p('article.word_count', words)})`;
-                                })()}
-                            </span> : null}
+                            {article && article.readtime && article.readtime === true ? <p class="level-item is-flex justify-content-center">
+                                <i class="fas fa-clock mr-1" />
+                                <span>
+                                    {(() => {
+                                        const words = getWordCount(page._content);
+                                        const time = moment.duration((words / 150.0) * 60, 'seconds');
+                                        return `${_p('article.read_time', time.locale(index ? indexLaunguage : language).humanize())} (${_p('article.word_count', words)})`;
+                                    })()}
+                                </span>
+                            </p> : null}
                             {/* Visitor counter */}
-                            {!index && plugins && plugins.busuanzi === true ? <span class="level-item" id="busuanzi_container_page_pv" dangerouslySetInnerHTML={{
-                                __html: _p('plugin.visit_count', '<span id="busuanzi_value_page_pv">0</span>')
-                            }}></span> : null}
+                            {!index && plugins && plugins.busuanzi === true ? <p class="level-item is-flex justify-content-center">
+                                <i class="fas fa-person mr-1" />
+                                <span id="busuanzi_container_page_pv" dangerouslySetInnerHTML={{
+                                    __html: _p('plugin.visit_count', '<span id="busuanzi_value_page_pv">0</span>')
+                                }}></span>
+                            </p> : null}
                         </div>
                     </div> : null}
                     {/* Title */}
